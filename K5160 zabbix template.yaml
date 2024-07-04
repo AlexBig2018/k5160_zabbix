@@ -1,0 +1,468 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 2555fbf9608a4a2dbbdcf7c55adefc24
+      name: Templates/LTE
+  templates:
+    - uuid: db8ff5aa35294a2998636a69005fb3c2
+      template: 'LTE K5160'
+      name: 'LTE K5160'
+      description: 'LTE K5160 HiLink API'
+      groups:
+        - name: Templates/LTE
+      items:
+        - uuid: b03b6a60faab4530a6db65501891f076
+          name: 'Статус соединения'
+          key: connectionstatus
+          description: |
+            # ConnectionStatus:
+            #   900: connecting
+            #   901: connected
+            #   902: disconnected
+            #   903: disconnecting
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: b9d09d3e193b411bb96265ee2e4fdeb2
+          name: 'Текущий тип сети в HEX'
+          key: curentnetworktypeex
+          delay: 1d
+          trends: '0'
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 2f96e336c3cd4a3da4b6bd66f95d1044
+          name: 'Продолжительность текущего соединения'
+          key: CurrentConnectTime
+          delay: '60'
+          history: 30d
+          units: s
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 511b735524d04fa5ab0ece5f3571ad68
+          name: Получено
+          key: CurrentDownload
+          delay: '60'
+          history: 30d
+          trends: '0'
+          value_type: FLOAT
+          units: b
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: a15bbab2bd7e4cb585d6df87daa7f5c4
+          name: 'Скорость загрузки'
+          key: CurrentDownloadRate
+          delay: '600'
+          history: 30d
+          value_type: FLOAT
+          units: bps
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: b8bd6d233b1f49f6b46d0155aa4b63a9
+          name: 'Текущий тип сети'
+          key: currentnetworktype
+          delay: 1h
+          trends: '0'
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 63ebe98be35c4a178c0db8488b48a9ee
+          name: Отправлено
+          key: CurrentUpload
+          delay: '60'
+          history: 30d
+          trends: '0'
+          value_type: FLOAT
+          units: b
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 5b62d2b6156947ac9952f1521a9144ee
+          name: 'Скорость передачи'
+          key: CurrentUploadRate
+          delay: '600'
+          history: 30d
+          value_type: FLOAT
+          units: bps
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: b8254dd96f6745a9959acdc3c77bac14
+          name: 'Имя устройства'
+          key: devicename
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: f1ea96fb8f0d45879271152765e880f4
+          name: 'Название оператора'
+          key: fullname
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 551ce69c79fa4978af22460ff3c15f33
+          name: 'Версия железа'
+          key: hardwareversion
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 676c679fe3c8493f880dc7696ca08706
+          name: ICCID
+          key: iccid
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: aefee6e7e8e04ef1884971f9c920746b
+          name: IMEI
+          key: imei
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: ead20f9f6b3e45958cf8276eb264caf3
+          name: IMSI
+          key: imsi
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 1f033d5c59574496b7ceacf9fab48a92
+          name: MAC-адрес
+          key: macaddress1
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: cb8519ea92b64bfabec66cdfc07ddc54
+          name: 'Номер телефона'
+          key: msisdn
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 7818fb349fe243daa50c7331882fa72c
+          name: 'Первичный DNS'
+          key: primarydns
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: a9408bcacc014aa4a122fe622c257a40
+          name: 'Первичный IPv6 DNS'
+          key: primaryipv6dns
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 5802cf252f614a2aa5b3247b2ffeb8f4
+          name: 'Уровень RSRP'
+          key: RSRP
+          delay: '600'
+          history: 30d
+          value_type: FLOAT
+          units: dBm
+          description: 'RSRP (Reference Signal Received Power) – среднее значение мощности принятых пилотных сигналов (Reference Signal) или уровень принимаемого сигнала с Базовой Станции. Значение RSRP измеряется в дБм (dBm). При значениях RSRP= -120 dBm и ниже LTE-подключение может быть нестабильным или вообще не устанавливаться.'
+          tags:
+            - tag: Application
+              value: LTE
+          triggers:
+            - uuid: 472fd1aae606434bb0abc8373fff5c98
+              expression: 'last(/LTE K5160/RSRP)<=-100'
+              name: 'Low level RSRP <= -100'
+              priority: HIGH
+              manual_close: 'YES'
+        - uuid: 72eba4e739714cc2867604fccb76f83f
+          name: 'Уровень RSRQ'
+          key: RSRQ
+          delay: '600'
+          history: 30d
+          value_type: FLOAT
+          units: dB
+          description: 'RSRQ (Reference Signal Received Quality) – характеризует качество принятых пилотных сигналов. Значение RSRQ измеряется в дБ (dB).'
+          tags:
+            - tag: Application
+              value: LTE
+          triggers:
+            - uuid: d2aa0bd1023c4a4e90e3a8bc65f361c9
+              expression: 'last(/LTE K5160/RSRQ)<-20'
+              name: 'Low level RSRQ < -20'
+              priority: HIGH
+              manual_close: 'YES'
+        - uuid: d9c2ace89d104671930392e167cd408c
+          name: 'Уровень RSSI'
+          key: RSSI
+          delay: '600'
+          history: 30d
+          value_type: FLOAT
+          units: dBm
+          description: 'RSSI (Received Signal Strength Indicator) — индикатор уровня мощности принимаемого модемом сигнала. Значение измеряется в дБм (dBm). Минимальное значение, приемлемое для работы в сети: RSSI = -85 дБм.'
+          tags:
+            - tag: Application
+              value: LTE
+          triggers:
+            - uuid: 272e5cd2499041e386b81bfa50054b66
+              expression: 'last(/LTE K5160/RSSI)<=-80'
+              name: 'Low level RSSI <= -80'
+              priority: HIGH
+              manual_close: 'YES'
+        - uuid: a827bc8a9c144b799d5c24950cff9294
+          name: 'Вторичный DNS'
+          key: secondarydns
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: bd89023851214fd6a76c6b4afd1ee976
+          name: 'Вторичный IPv6 DNS'
+          key: secondaryipv6dns
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 8ffcee8012d64a969b65a1e7034d4cd5
+          name: 'Серийный номер устройства'
+          key: serialnumber
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: c716f31b459743058699d79d96d6aeac
+          name: 'Состояние SIM-карты'
+          key: simstate
+          delay: 1d
+          description: |
+            # simstate:
+            #255 - нет сим-карты,
+            #256 - ошибка CPIN,
+            #257 – готов,
+            #258 - ПИН-код отключен,
+            #259 - Проверка ПИН-кода,
+            #260 - требуется ПИН-код,
+            #261 - Требуется PUK
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 2acc246a811b4521973846b90d999ea8
+          name: 'Состояние лотка для SIM-карты'
+          key: simstatus
+          delay: 1d
+          description: |
+            #Статус Сима:
+            #0 - нет SIM-карты или она недействительна
+            #1 - правильная SIM-карта
+            #2 – недействительная SIM-карта для случая с коммутацией каналов (CS).
+            #3 - недействительная SIM-карта для случая коммутации пакетов (PS)
+            #4 - недействительная SIM-карта для случая коммутации каналов и пакетов (PS+CS)
+            #240 - РОМСИМ
+            #255 - нет сим-карты
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 6627541a40374bed83e8d3dfbdfe16c1
+          name: 'Уровень SINR'
+          key: SINR
+          delay: '600'
+          history: 30d
+          value_type: FLOAT
+          units: dB
+          description: |
+            CINR (Carrier to Interference + Noise Ratio) также называемый SINR (Signal to Interference + Noise Ratio) — отношение уровня полезного сигнала к уровню шума (или просто соотношение сигнал/шум). Значение CINR измеряется в дБ (dB).
+            
+            Положительное значение CINR означает, что полезного сигнала больше, чем шума. Минимальное значение, приемлемое для стабильной работы в сети: CINR = 10 дБ.
+          tags:
+            - tag: Application
+              value: LTE
+          triggers:
+            - uuid: 5608517c3f4647b7a47581749a2e8136
+              expression: 'last(/LTE K5160/SINR)<=2'
+              name: 'Low level SINR <= 2'
+              priority: HIGH
+        - uuid: 142bdb73814b41d298beb1db6d9f83ba
+          name: 'Версия софта'
+          key: softwareversion
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 35297562b07849cf83e08975cab36b2b
+          name: 'Общее время соединения'
+          key: TotalConnectTime
+          delay: '60'
+          history: 30d
+          units: s
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 7bdfcc0266f34f808380f7f097671d1f
+          name: 'Всего получено'
+          key: TotalDownload
+          delay: '60'
+          history: 30d
+          value_type: FLOAT
+          units: b
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: c29e1f9019cc40ee8edbc0c0efdf2fff
+          name: 'Всего отправлено'
+          key: TotalUpload
+          delay: '60'
+          history: 30d
+          value_type: FLOAT
+          units: b
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 81240c862a844708adfdc0f01c9392f8
+          name: 'Внешний IP адрес'
+          key: wanipaddress
+          delay: 1h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: cb247c9507924c31996a5cba146b0944
+          name: 'Внешний IPv6 адрес'
+          key: wanipv6address
+          delay: 1h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 5b7ebaae804e4767a02308b3c49935bc
+          name: 'Версия Web-интерфейса'
+          key: webuiversion
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+        - uuid: 91df8166d21d445cb4f42dd24d8be2ff
+          name: 'Режим работы'
+          key: workmode
+          delay: 1d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: LTE
+      tags:
+        - tag: class
+          value: device
+        - tag: target
+          value: lte
+      valuemaps:
+        - uuid: 54344cc984ad4849ad9681294832ac7f
+          name: ConnectionStatus
+          mappings:
+            - value: '900'
+              newvalue: Connecting
+  triggers:
+    - uuid: 6e73dba11e9e4eef8571231a9ad7c3cf
+      expression: 'last(/LTE K5160/RSRP)>=-80 and last(/LTE K5160/RSRQ)>=-10 and last(/LTE K5160/SINR)>=20'
+      name: 'Качество сигнала отличное'
+      priority: INFO
+      manual_close: 'YES'
+    - uuid: ac8f3dd2ec4a453eaed1dc81de4bc179
+      expression: 'last(/LTE K5160/RSRP)<=-90 and last(/LTE K5160/RSRQ)<=-15 and last(/LTE K5160/SINR)<10'
+      name: 'Качество сигнала плохое'
+      priority: AVERAGE
+      manual_close: 'YES'
+    - uuid: cdb30d38ad2b46d492a51cbdedb5e68f
+      expression: 'last(/LTE K5160/RSRP)<=-100 and last(/LTE K5160/RSRQ)<=-20 and last(/LTE K5160/SINR)<=0'
+      name: 'Качество сигнала ужасное'
+      priority: HIGH
+      manual_close: 'YES'
+    - uuid: 8a2d439721234254819a665d2d8228f5
+      expression: 'last(/LTE K5160/RSRP)<=-80 and last(/LTE K5160/RSRQ)<=-10 and last(/LTE K5160/SINR)<20'
+      name: 'Качество сигнала хорошее'
+      priority: INFO
+      manual_close: 'YES'
+  graphs:
+    - uuid: 485fbfa903f948bb8e83422a83c38dc3
+      name: 'Уровень RSRP'
+      graph_items:
+        - color: 199C0D
+          item:
+            host: 'LTE K5160'
+            key: RSRP
+    - uuid: fbed6b93179941c08a0280c16fb5dafd
+      name: 'Уровень RSRQ'
+      graph_items:
+        - color: 199C0D
+          item:
+            host: 'LTE K5160'
+            key: RSRQ
+    - uuid: 5f558a571af947498ee95dcbfec509e4
+      name: 'Уровень RSSI'
+      graph_items:
+        - color: 199C0D
+          item:
+            host: 'LTE K5160'
+            key: RSSI
+    - uuid: 9fb8e9d7b888484e83a3e32df02e4fdc
+      name: 'Уровень SINR'
+      graph_items:
+        - color: 199C0D
+          item:
+            host: 'LTE K5160'
+            key: SINR
+    - uuid: 73a00e34c9634d7c9fe973a83751a2ba
+      name: 'Уровни сигнала'
+      graph_items:
+        - color: 199C0D
+          item:
+            host: 'LTE K5160'
+            key: RSRP
+        - sortorder: '1'
+          color: F63100
+          item:
+            host: 'LTE K5160'
+            key: RSRQ
+        - sortorder: '2'
+          color: 2774A4
+          item:
+            host: 'LTE K5160'
+            key: RSSI
+        - sortorder: '3'
+          color: F7941D
+          item:
+            host: 'LTE K5160'
+            key: SINR
