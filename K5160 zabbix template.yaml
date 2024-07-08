@@ -14,12 +14,31 @@ zabbix_export:
         - uuid: b03b6a60faab4530a6db65501891f076
           name: 'Статус соединения'
           key: connectionstatus
+          trends: '0'
+          value_type: TEXT
           description: |
             # ConnectionStatus:
             #   900: connecting
             #   901: connected
             #   902: disconnected
             #   903: disconnecting
+          preprocessing:
+            - type: STR_REPLACE
+              parameters:
+                - '900'
+                - Connecting
+            - type: STR_REPLACE
+              parameters:
+                - '901'
+                - Connected
+            - type: STR_REPLACE
+              parameters:
+                - '903'
+                - Disconnecting
+            - type: STR_REPLACE
+              parameters:
+                - '902'
+                - Disconnected
           tags:
             - tag: Application
               value: LTE
@@ -262,6 +281,8 @@ zabbix_export:
           name: 'Состояние SIM-карты'
           key: simstate
           delay: 1d
+          trends: '0'
+          value_type: TEXT
           description: |
             # simstate:
             #255 - нет сим-карты,
@@ -271,6 +292,35 @@ zabbix_export:
             #259 - Проверка ПИН-кода,
             #260 - требуется ПИН-код,
             #261 - Требуется PUK
+          preprocessing:
+            - type: STR_REPLACE
+              parameters:
+                - '257'
+                - Ready
+            - type: STR_REPLACE
+              parameters:
+                - '255'
+                - 'No SIM'
+            - type: STR_REPLACE
+              parameters:
+                - '256'
+                - 'PIN error'
+            - type: STR_REPLACE
+              parameters:
+                - '258'
+                - 'PIN diasbled'
+            - type: STR_REPLACE
+              parameters:
+                - '259'
+                - 'PIN check'
+            - type: STR_REPLACE
+              parameters:
+                - '260'
+                - 'PIN wait'
+            - type: STR_REPLACE
+              parameters:
+                - '261'
+                - 'PUK wait'
           tags:
             - tag: Application
               value: LTE
@@ -278,6 +328,8 @@ zabbix_export:
           name: 'Состояние лотка для SIM-карты'
           key: simstatus
           delay: 1d
+          trends: '0'
+          value_type: TEXT
           description: |
             #Статус Сима:
             #0 - нет SIM-карты или она недействительна
@@ -287,6 +339,19 @@ zabbix_export:
             #4 - недействительная SIM-карта для случая коммутации каналов и пакетов (PS+CS)
             #240 - РОМСИМ
             #255 - нет сим-карты
+          preprocessing:
+            - type: STR_REPLACE
+              parameters:
+                - '1'
+                - OK
+            - type: STR_REPLACE
+              parameters:
+                - '0'
+                - 'SIM failure'
+            - type: STR_REPLACE
+              parameters:
+                - '255'
+                - 'No SIM'
           tags:
             - tag: Application
               value: LTE
@@ -388,6 +453,448 @@ zabbix_export:
           value: device
         - tag: target
           value: lte
+      dashboards:
+        - uuid: 20c4e13f61e643508aba90a7a10b199f
+          name: LTE
+          pages:
+            - widgets:
+                - type: item
+                  name: 'Device name'
+                  width: '5'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: devicename
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: 'Operator name'
+                  'y': '2'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: fullname
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: 'Telephone number'
+                  'y': '3'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: msisdn
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: 'WAN IP'
+                  'y': '4'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: wanipaddress
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: 'Primary DNS'
+                  'y': '5'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: primarydns
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: 'Hardware version'
+                  'y': '6'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: hardwareversion
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: 'Software version'
+                  'y': '7'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: softwareversion
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: WebUIVersion
+                  'y': '8'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: webuiversion
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: SerialNumber
+                  'y': '9'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: serialnumber
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: 'Общее время соединения'
+                  'y': '10'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: TotalConnectTime
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: item
+                  name: 'Время текущего соединения'
+                  'y': '11'
+                  width: '5'
+                  height: '1'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: CurrentConnectTime
+                    - type: INTEGER
+                      name: show.0
+                      value: '2'
+                - type: svggraph
+                  name: 'Скорость загрузки передачи'
+                  x: '5'
+                  width: '67'
+                  height: '4'
+                  fields:
+                    - type: STRING
+                      name: ds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: ds.0.items.0
+                      value: 'Скорость загрузки'
+                    - type: STRING
+                      name: ds.0.items.1
+                      value: 'Скорость передачи'
+                    - type: STRING
+                      name: reference
+                      value: LJETQ
+                    - type: INTEGER
+                      name: righty
+                      value: '0'
+                - type: svggraph
+                  name: Отправлено\получено
+                  x: '5'
+                  'y': '4'
+                  width: '67'
+                  height: '4'
+                  fields:
+                    - type: STRING
+                      name: ds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: ds.0.items.0
+                      value: Отправлено
+                    - type: STRING
+                      name: ds.0.items.1
+                      value: Получено
+                    - type: STRING
+                      name: reference
+                      value: FLJTT
+                    - type: INTEGER
+                      name: righty
+                      value: '0'
+                - type: gauge
+                  x: '5'
+                  'y': '8'
+                  width: '11'
+                  height: '4'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: RSRP
+                    - type: STRING
+                      name: max
+                      value: '60'
+                    - type: STRING
+                      name: min
+                      value: '-140'
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '3'
+                    - type: INTEGER
+                      name: show.3
+                      value: '4'
+                    - type: INTEGER
+                      name: show.4
+                      value: '5'
+                    - type: STRING
+                      name: thresholds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: thresholds.0.threshold
+                      value: '-140'
+                    - type: STRING
+                      name: thresholds.1.color
+                      value: FF8000
+                    - type: STRING
+                      name: thresholds.1.threshold
+                      value: '-120'
+                    - type: STRING
+                      name: thresholds.2.color
+                      value: FFD54F
+                    - type: STRING
+                      name: thresholds.2.threshold
+                      value: '-90'
+                    - type: STRING
+                      name: thresholds.3.color
+                      value: 00FF00
+                    - type: STRING
+                      name: thresholds.3.threshold
+                      value: '-60'
+                    - type: INTEGER
+                      name: th_show_arc
+                      value: '1'
+                - type: gauge
+                  x: '16'
+                  'y': '8'
+                  width: '10'
+                  height: '4'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: RSRQ
+                    - type: STRING
+                      name: max
+                      value: '20'
+                    - type: STRING
+                      name: min
+                      value: '-30'
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '3'
+                    - type: INTEGER
+                      name: show.3
+                      value: '4'
+                    - type: INTEGER
+                      name: show.4
+                      value: '5'
+                    - type: STRING
+                      name: thresholds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: thresholds.0.threshold
+                      value: '-30'
+                    - type: STRING
+                      name: thresholds.1.color
+                      value: FF8000
+                    - type: STRING
+                      name: thresholds.1.threshold
+                      value: '-20'
+                    - type: STRING
+                      name: thresholds.2.color
+                      value: FFFF00
+                    - type: STRING
+                      name: thresholds.2.threshold
+                      value: '-15'
+                    - type: STRING
+                      name: thresholds.3.color
+                      value: 00FF00
+                    - type: STRING
+                      name: thresholds.3.threshold
+                      value: '-10'
+                    - type: INTEGER
+                      name: th_show_arc
+                      value: '1'
+                - type: gauge
+                  x: '26'
+                  'y': '8'
+                  width: '9'
+                  height: '4'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: RSSI
+                    - type: STRING
+                      name: max
+                      value: '0'
+                    - type: STRING
+                      name: min
+                      value: '-85'
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '3'
+                    - type: INTEGER
+                      name: show.3
+                      value: '4'
+                    - type: INTEGER
+                      name: show.4
+                      value: '5'
+                    - type: STRING
+                      name: thresholds.0.color
+                      value: FF8000
+                    - type: STRING
+                      name: thresholds.0.threshold
+                      value: '-85'
+                    - type: STRING
+                      name: thresholds.1.color
+                      value: FFD54F
+                    - type: STRING
+                      name: thresholds.1.threshold
+                      value: '-75'
+                    - type: STRING
+                      name: thresholds.2.color
+                      value: 00FF00
+                    - type: STRING
+                      name: thresholds.2.threshold
+                      value: '-65'
+                    - type: INTEGER
+                      name: th_show_arc
+                      value: '1'
+                - type: gauge
+                  x: '35'
+                  'y': '8'
+                  width: '9'
+                  height: '4'
+                  hide_header: 'YES'
+                  fields:
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'LTE K5160'
+                        key: SINR
+                    - type: STRING
+                      name: max
+                      value: '50'
+                    - type: STRING
+                      name: min
+                      value: '0'
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '3'
+                    - type: INTEGER
+                      name: show.3
+                      value: '4'
+                    - type: INTEGER
+                      name: show.4
+                      value: '5'
+                    - type: STRING
+                      name: thresholds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: thresholds.0.threshold
+                      value: '0'
+                    - type: STRING
+                      name: thresholds.1.color
+                      value: FFFF00
+                    - type: STRING
+                      name: thresholds.1.threshold
+                      value: '4'
+                    - type: STRING
+                      name: thresholds.2.color
+                      value: 00FF00
+                    - type: STRING
+                      name: thresholds.2.threshold
+                      value: '12'
+                    - type: INTEGER
+                      name: th_show_arc
+                      value: '1'
+                    - type: INTEGER
+                      name: th_show_labels
+                      value: '1'
       valuemaps:
         - uuid: 54344cc984ad4849ad9681294832ac7f
           name: ConnectionStatus
@@ -416,6 +923,20 @@ zabbix_export:
       priority: INFO
       manual_close: 'YES'
   graphs:
+    - uuid: a26a9b51e7f64efdaf0fe075f11dc23a
+      name: 'Скорость загрузки и передачи'
+      graph_items:
+        - color: 199C0D
+          calc_fnc: ALL
+          item:
+            host: 'LTE K5160'
+            key: CurrentDownloadRate
+        - sortorder: '1'
+          color: F63100
+          calc_fnc: ALL
+          item:
+            host: 'LTE K5160'
+            key: CurrentUploadRate
     - uuid: 485fbfa903f948bb8e83422a83c38dc3
       name: 'Уровень RSRP'
       graph_items:
